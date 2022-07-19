@@ -148,13 +148,13 @@ generatessh(){
 			read sshshowres
 			if [[ "$sshshowres" == "y" ]];then
 			   	printf "\n\n_________________________________________________________________________________\n"
-		    	printf "Please copy the ssh public key content and update in $sshfilepath (for windows - C:\Users\username\.ssh\administrators_authorized_keys )file\n"
+		    	printf "Please copy the ssh public key content and update in $sshfilepath (for windows - Please copy the ssh key content and update in your windows ssh folder either authorized_keys or administrators_authorized_keys) file\n"
     			printf " ____________________________________________________________________________________\n"
 				cat $dirpath/migration.key.pub
 				printf "\n___________________________________________________________________________________\n"
 				sshcopyconfirm
 			else
-				printf "\n Please make sure, ssh public key content updated in $sshfilepath (for windows - C:\Users\username\.ssh\administrators_authorized_keys ) file"
+				printf "\n Please make sure, ssh public key content updated in $sshfilepath (for windows - Please copy the ssh key content and update in your windows ssh folder either authorized_keys or administrators_authorized_keys ) file"
 			fi
 		else
 			failed "\n Please enter valid option"
