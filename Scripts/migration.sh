@@ -198,7 +198,7 @@ check_cos_object () {
 				passed "Image file: $objectstatus present in COS bucket"
 			fi
 		else
-			loginfo "Image file will uploaded to COS Bucket"
+			loginfo "Image file will be uploaded to COS Bucket"
 			cos_upload
 		fi
 	elif [[ "$migratefrom" == "classic" ]];then
