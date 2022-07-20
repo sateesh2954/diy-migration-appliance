@@ -344,7 +344,7 @@ create_custom_image (){
 			if [[ $retrycountcustom -gt 0  ]];then
 				loginfo "Re-trying Custom image creation"
 			fi
-			ibmcloud is image-create $CUSTOM_IMAGE_NAME  --file $imgloc --os-name $osname --resource-group-id $resourcegroupid > $customimagedetailstmp
+			ibmcloud is image-create $CUSTOM_IMAGE_NAME  --file $imgloc --os-name $OS_NAME-$OS_VERSION-amd64 --resource-group-id $resourcegroupid > $customimagedetailstmp
         	imageid=`cat $customimagedetailstmp | grep ID | awk '{print $2}'`
 			retrycountcustom=$((retrycountcustom + 1))
 			loginfo "Creating Custom Image is in progress..."
