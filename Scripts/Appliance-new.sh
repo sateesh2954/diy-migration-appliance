@@ -650,8 +650,8 @@ classicimageexport(){
 		sed -i '/classicinstanceid/d' $dirpath$srcip/$tempvarfile
 		echo "classicinstanceid=$classicinstanceid" >> $dirpath$srcip/$tempvarfile
 		loginfo "Exporting classic VSI into Image Template starting..."
-		if slcli virtual capture $classicinstanceid --name $CUSTOM_IMAGE_NAME --note $tempalatenote ;then
-			success "Exporting classic VSI into Image Template is started"
+		if ibmcloud sl vs capture $classicinstanceid --name $CUSTOM_IMAGE_NAME --note $tempalatenote ;then
+			success "Exporting classic VSI into Image Template in started"
 			sleep 1m
 			imageid=`ibmcloud sl image list --private --name $CUSTOM_IMAGE_NAME | grep "System" | sort -nr | head -n 1 | awk '{print $1}'`
 			while [[ -z $imageid ]];
