@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#This is the appliance script which will help to migrate IBM Cloud Classic VSI  and VMWare vm's to IBMCLOUD VPC
+#This is the appliance script which will help to migrate IBM Cloud Classic VSI  and VMWare vm's to IBMCLOUD VPC Appliance Version2.0
 
 #variable declaration
 sshport="22"
