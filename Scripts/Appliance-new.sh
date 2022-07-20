@@ -319,7 +319,7 @@ validateprecheckresultlinux(){
 	while read -r line; do
         prechk=$line
         if [[ "$prechk" == "dhcpcheck" ]];then
-            if [[ "$migratefrom" == "classic" ]];then
+            if [[ "$migratefrom" == "classic" ]] || [[ "$OS_NAME" == "ubuntu" ]];then
                 precheck="passed"
             else
                 precheck="failed"
