@@ -163,7 +163,7 @@ generatessh(){
 	else
 		ssh-keygen -t rsa -N "" -f $dirpath/migration.key
 		printf "\n\n_________________________________________________________________________________\n"
-		printf "Please copy the ssh public key content and update in $sshfilepath file\n"
+		printf "Please copy the ssh public key content and update in $sshfilepath (for windows - Please copy the ssh key content and update in your windows ssh folder either authorized_keys or administrators_authorized_keys) file\n"
 		printf "_____________________________________________________________________________________\n"
 		cat $dirpath/migration.key.pub
 		printf "\n___________________________________________________________________________________\n"
@@ -176,7 +176,7 @@ sshcopyconfirm(){
 	if [[ "$sshres" == "y" ]];then
 		sshconfirm="y"
 	else
-		question "Have you copied the ssh public key content and update in $sshfilepath file, please confirm"
+		question "Have you copied the ssh public key content and update in $sshfilepath (for windows - Please copy the ssh key content and update in your windows ssh folder either authorized_keys or administrators_authorized_keys) file, please confirm"
 		read sshconfirm
 	fi
 	if [[ "$sshconfirm" == "y" ]];then
@@ -197,7 +197,7 @@ sshconcheck(){
 		sshconcheckstatus="success"
 	else
    		error "SSH connection to $srcip over port $sshport is not possible"
-		loginfo "Please make sure you have added ssh key in $sshfilepath file"
+		loginfo "Please make sure you have added ssh key in $sshfilepath (for windows - windows ssh folder either authorized_keys or administrators_authorized_keys)file"
 		question "Do you want re-check SSH key?"
 		read sshrecheckres
 		if [[ "$sshrecheckres" == y ]];then
