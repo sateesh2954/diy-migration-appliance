@@ -670,9 +670,6 @@ else
 fi
 #----------------------------------------- Create VSI Script Ends here ------------------------------------------------------
 #----------------------------------------- End of the Script -----------------------------------------------------------------
-source $MIGRATEPATH/$tempvarfile
-rm_tmp_dir
-echo -e "\n\n\n\n"
 draw_line "*" 2
 display "END OF THE SCRIPT" $RED
 draw_line "*" 2 $GREEN
