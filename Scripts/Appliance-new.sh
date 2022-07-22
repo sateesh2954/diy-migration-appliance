@@ -251,9 +251,9 @@ resultexecprechecklinux(){
 		if ssh -o BatchMode=yes -o StrictHostKeyChecking=no -i $dirpath/migration.key $ROOT_USERNAME@$srcip "test -e /tmp/$precheckreport"; then
 			scp -o BatchMode=yes -o StrictHostKeyChecking=no -i $dirpath/migration.key  $ROOT_USERNAME@$srcip:/tmp/$precheckreport $dirpath$srcip/$precheckreport
 			source $dirpath$srcip/$precheckreport
-			cat precheckreport
 			if [[ "$prerequisitescheck" == "completed" ]];then
 				success "Pre-requisites report is generated"
+				cat $dirpath$srcip/$precheckreport
 				scp -o BatchMode=yes -o StrictHostKeyChecking=no -i $dirpath/migration.key  $ROOT_USERNAME@$srcip:/tmp/pc.err $dirpath$srcip/pc.out
 				scp -o BatchMode=yes -o StrictHostKeyChecking=no -i $dirpath/migration.key  $ROOT_USERNAME@$srcip:/tmp/pc.err $dirpath$srcip/pc.err
 				ssh -o BatchMode=yes -o StrictHostKeyChecking=no -i $dirpath/migration.key $ROOT_USERNAME@$srcip "sh -c 'cd /tmp; nohup ./cronjobscheduler.sh del > /dev/null 2>&1 &'"
