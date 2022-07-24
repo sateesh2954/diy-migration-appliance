@@ -522,7 +522,7 @@ create_vsi () {
 				rm -rf $vsidetailstmp
 			fi
 			sleep 20
-			if vsiid=`cat $vsidetailstmp | grep ID | grep -v -E "Image|VPC|Resource group|Boot volume" | awk '{print $2}'` ; then
+			if vsiid=`cat $vsidetailstmp | grep ID | grep -v -E "Image|VPC|Resource group|Boot volume|Network Inrerfaces" | grep -v -E "Interface|instance" | awk '{print $2}'` ; then
 				:
 			else
 				loginfo "Re-trying VSI creation"
@@ -542,7 +542,7 @@ create_vsi () {
 			check_vsi
     	fi
 	elif [[ -f  "$vsidetailstmp" ]]; then
-		vsiid=`cat $vsidetailstmp | grep ID | grep -v -E "Image|VPC|Resource group|Boot volume" | awk '{print $2}'`
+		vsiid=`cat $vsidetailstmp | grep ID | grep -v -E "Image|VPC|Resource group|Boot volume|Network Inrerfaces" | grep -v -E "Interface|instance" | awk '{print $2}'`
 		if [[ ! -z "$vsiid" ]]; then
 			vsistatus=`ibmcloud is instance $vsiid | grep Status | awk '{ print $2 }'`
 			while [[ -z $vsistatus ]]
