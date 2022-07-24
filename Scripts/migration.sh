@@ -345,7 +345,7 @@ create_custom_image (){
 				loginfo "Re-trying Custom image creation"
 			fi
 			ibmcloud is image-create $CUSTOM_IMAGE_NAME  --file $imgloc --os-name $osname --resource-group-id $resourcegroupid > $customimagedetailstmp
-        		imageid=`cat $customimagedetailstmp | grep ID | awk '{print $3}'`
+        		imageid=`cat $customimagedetailstmp | grep ID | grep -v -E "image" | awk '{print $2}'`
 			retrycountcustom=$((retrycountcustom + 1))
 			loginfo "Creating Custom Image is in progress..."
 			ibmcloud target -r $REGION 
@@ -513,7 +513,7 @@ create_vsi () {
 			fi
 			if ibmcloud is instance-create $VSI_NAME $vpcid $regionzone $INSTANCE_PROFILE_NAME $subnetid --resource-group-id $resourcegroupid --image $imageid --keys $sshkeyid > $vsidetailstmp ;then
 				sleep 10
-				vsiid=`cat $vsidetailstmp | grep ID | grep -v -E "Image|VPC|Resource group|Boot volume" | awk '{print $2}'`
+				vsiid=`cat $vsidetailstmp | grep ID | grep -v -E "Image|VPC|Resource group|Boot volume|Network Inrerfaces" | grep -v -E "Interface|instance" | awk '{print $2}'`
 				success "Creation of VSI from custom image is triggered, and VSI ID is: $vsiid"
 				echo "vsiid=$vsiid" >> $MIGRATEPATH/$tempvarfile
 				sleep 20	
