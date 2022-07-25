@@ -696,6 +696,7 @@ classicimageexport(){
 							echo "objectexist=present" >> $dirpath$srcip/$tempvarfile
 							echo "vhdcosobjectname=$cosobjectname" >> $dirpath$srcip/$tempvarfile
 							passed "Classic Image Template export to COS bucket is successful"
+							migratemain
 							
 						else
 							sleep 1m    
