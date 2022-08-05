@@ -338,16 +338,18 @@ create_custom_image (){
     action=$5
 	imageid=""
 	retrycountcustom=0
+	source $MIGRATEPATH/$CONFIGFILE
+	source $MIGRATEPATH/$tempvarfile
 	if [[ "$action" = "create" ]];then
 		while [[ $retrycountcustom -le 10  ]] && [[ -z $imageid ]]
 		do
 			if [[ $retrycountcustom -gt 0  ]];then
 				loginfo "Re-trying Custom image creation"
 			fi
+			imgloc="cos://$REGION/$BUCKET/$cosobjectname"
+			osname="$OS_NAME-$OS_VERSION-amd64"
 			echo $CUSTOM_IMAGE_NAME
 			echo $imgloc
-			imgloc="cos://$REGION/$BUCKET/$upload_object"
-			osname="$OS_NAME-$OS_VERSION-amd64"
 			ibmcloud is image-create $CUSTOM_IMAGE_NAME  --file $imgloc --os-name $osname --resource-group-id $resourcegroupid > $customimagedetailstmp
         		imageid=`cat $customimagedetailstmp | grep ID | grep -v -E "image" | awk '{print $2}'`
 			retrycountcustom=$((retrycountcustom + 1))
@@ -401,7 +403,7 @@ check_custom_image () {
 		dump=""	
 	fi
 	osname="$OS_NAME-$OS_VERSION-amd64"
-	imgloc="cos://$REGION/$BUCKET/$upload_object"
+	imgloc="cos://$REGION/$BUCKET/$cosobjectname"
 	CUSTOM_IMAGE_NAME=`echo $CUSTOM_IMAGE_NAME | tr '[:upper:]' '[:lower:]'`
 	osname=`echo $osname | tr '[:upper:]' '[:lower:]'`
     if [[ ! -f "$customimagedetailstmp" ]] && [[ -z "$imageid" ]];then
@@ -628,6 +630,7 @@ fi
 #----------------------------------------- Create Custom Image Script Starts here -------------------------------------------
 if [[ "$objectstatus" == "$upload_object" ]];then
 	if [[ -z $imageid ]] ;then
+		echo $upload_object
 		loginfo "Creating custom image"
 		check_custom_image
 	elif [[ ! -z $imageid ]] && [[ "$convertuseropt" = "y" ]];then
