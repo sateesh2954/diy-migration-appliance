@@ -346,7 +346,9 @@ create_custom_image (){
 			fi
 			echo $CUSTOM_IMAGE_NAME
 			echo $imgloc
-			ibmcloud is image-create $CUSTOM_IMAGE_NAME.vhd  --file $imgloc --os-name $osname --resource-group-id $resourcegroupid > $customimagedetailstmp
+			imgloc="cos://$REGION/$BUCKET/$upload_object"
+			osname="$OS_NAME-$OS_VERSION-amd64"
+			ibmcloud is image-create $CUSTOM_IMAGE_NAME  --file $imgloc --os-name $osname --resource-group-id $resourcegroupid > $customimagedetailstmp
         		imageid=`cat $customimagedetailstmp | grep ID | grep -v -E "image" | awk '{print $2}'`
 			retrycountcustom=$((retrycountcustom + 1))
 			loginfo "Creating Custom Image is in progress..."
