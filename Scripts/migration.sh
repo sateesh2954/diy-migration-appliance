@@ -346,22 +346,13 @@ create_custom_image (){
 			fi
 			echo $CUSTOM_IMAGE_NAME
 			echo $imgloc
-			if [[ "$migratefrom" == "classic" ]];then
-				ibmcloud is image-create $CUSTOM_IMAGE_NAME.vhd  --file $imgloc --os-name $osname --resource-group-id $resourcegroupid > $customimagedetailstmp
-				imageid=`cat $customimagedetailstmp | grep ID | grep -v -E "image" | awk '{print $2}'`
-				retrycountcustom=$((retrycountcustom + 1))
-				loginfo "Creating Custom Image is in progress..."
-				ibmcloud target -r $REGION 
-				sleep 60
-				imgstatus=`ibmcloud is image $imageid | grep -e "Status  " | awk '{print $2}'`
-			else 
-				ibmcloud is image-create $CUSTOM_IMAGE_NAME  --file $imgloc --os-name $osname --resource-group-id $resourcegroupid > $customimagedetailstmp
-        			imageid=`cat $customimagedetailstmp | grep ID | grep -v -E "image" | awk '{print $2}'`
-				retrycountcustom=$((retrycountcustom + 1))
-				loginfo "Creating Custom Image is in progress..."
-				ibmcloud target -r $REGION 
-				sleep 60
-				imgstatus=`ibmcloud is image $imageid | grep -e "Status  " | awk '{print $2}'`			
+			ibmcloud is image-create $CUSTOM_IMAGE_NAME.vhd  --file $imgloc --os-name $osname --resource-group-id $resourcegroupid > $customimagedetailstmp
+        		imageid=`cat $customimagedetailstmp | grep ID | grep -v -E "image" | awk '{print $2}'`
+			retrycountcustom=$((retrycountcustom + 1))
+			loginfo "Creating Custom Image is in progress..."
+			ibmcloud target -r $REGION 
+			sleep 60
+			imgstatus=`ibmcloud is image $imageid | grep -e "Status  " | awk '{print $2}'`			
 		done
     	else
 	    	imageid=$action
