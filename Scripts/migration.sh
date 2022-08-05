@@ -483,7 +483,6 @@ check_vsi (){
     	failure="true"
 	fi
 	if [[ $failure == false ]] && [[ "$vsistatus" == "running" ]]; then
-		vsiname=`ibmcloud is instance $vsiid --output json | .name | tr -d '"'`
 		loginfo "VSI Name :- $VSI_NAME"
 		loginfo "VSI ID :- $vsiid"
 		rm -rf $vsidetailstmp
