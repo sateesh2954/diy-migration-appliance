@@ -366,7 +366,7 @@ windowsprecheckcopyvalidate(){
 	grep failed $"$dirpath$srcip/win_precheckreport" | awk -F= '{print $1}' > $dirpath$srcip/failedchecks
 	if [[ -f "$dirpath$srcip/failedchecks" ]]; then
 		if ! [[ -s "$dirpath$srcip/failedchecks" ]]; then
-			if [[ "$migratefrom" == "vmware" ]]; then
+			if ! [[ "$migratefrom" == "vmware" ]]; then
 				passed "Pre-requisites for migration"
 				loginfo "Please do network reset and sysprep needs to be performed then shutdown the VMware ESXi virtual machine and upload vmdk file of OS disk to the appliance in $dirpath$srcip path which contains two files downloaded from VMware datastore. For example: vmdisk-flat.vmdk and vmdisk.vmdk"
 			else 
